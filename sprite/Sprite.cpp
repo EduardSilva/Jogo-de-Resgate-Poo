@@ -6,8 +6,10 @@
 #include <string>
 	using std::string;
 
-	
-SpriteBase::SpriteBase (string arquivo): orientação('D'){
+
+//relacionados a Sprite
+
+Sprite::Sprite (string arquivo): SpriteBase() {
 	
 	ifstream arqI;
 	arqI.open(arquivo, ifstream::in);	//abrir o arquivo
@@ -28,9 +30,11 @@ SpriteBase::SpriteBase (string arquivo): orientação('D'){
 		vector<char> linha;
 		for (int l = 0; l < linha_tam; l++){ //l = coluna = 0; coluna < tam da string
 			linha.push_back(linha_texto[l]);
-			if (l > this->tamh) tamh = l;
+			
 		}
-
+		if (linha_tam > this->tamh) 
+			this->tamh = linha_tam;
+			
 		this->sprite.push_back(linha);
 		
 		h++;
@@ -43,16 +47,93 @@ SpriteBase::SpriteBase (string arquivo): orientação('D'){
 };
 
 
+Sprite::Sprite(vector<vector <char> > sprite, int v, int h): SpriteBase(){
+
+	this->sprite = sprite;
+	this->tamv = v;
+	this->tamh = h;
+		 
+};
+
+
+
+
 void Sprite::Draw(){
 	
 	if (this->orientação == 'D'){
 		for (int v = 0; v < this->tamv; v++){
-			for(int h = 0; h < this->tamh; h++){
+				int taml =  this->sprite[v].size();
+			for(int h = 0; h <taml; h++){
 				cout << this->sprite[v][h];
 			}
 		cout << std::endl;
 		}
+		return;
+	}
+	
+	for (int v = 0; v < this->tamv; v++){
+		for(int h = this->tamh-1; h >= 0 ; h--){
+			cout << this->sprite[v][h];
+	}
 	}
 	
 };
 
+//relacionados a Sprite animado
+
+SpriteAnimado::SpriteAnimado( string arquivo, char sep = 0x0): SpriteBase(), estagio(0) {
+
+	ifstream arqI;
+	arqI.open(arquivo, ifstream::in);	//abrir o arquivo
+	if (! arqI.is_open()){	
+			cout << "O sprite presente no arquivo :" << arquivo 
+			<<" não foi aberto" << std::endl;
+			exit(1);
+		}
+		
+	string linha_texto;
+	vector <vector <char>> atual;
+	int h =0, v = 0;
+	
+	while(getline(arqI, linha_texto)){
+
+		if(linha_texto[0] != sep){
+			v++;
+			int linha_tam = linha_texto.length();
+			vector<char> linha;
+			for (int l = 0; l < linha_tam; l++){ //l = coluna = 0; coluna < tam da string
+				linha.push_back(linha_texto[l]);
+				
+			}
+			if (linha_tam > h) 
+				h = linha_tam;
+				
+			atual.push_back(linha);
+			}
+			
+		else{
+			Sprite a(atual, v, h);
+			this->sprite.push_back(a);
+			h = v = 0;
+			atual.clear();
+		}
+	}
+
+
+	arqI.close();
+};
+
+void SpriteAnimado::Draw(){
+
+	sprite[estagio].Draw();
+	atualizar_estagio();
+		
+	
+}
+
+
+void SpriteAnimado::atualizar_estagio(){
+	int limite  = sprite.size();
+	estagio++;
+	if (estagio == limite ) estagio = 0;
+}

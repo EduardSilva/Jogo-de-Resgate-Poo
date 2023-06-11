@@ -1,14 +1,13 @@
-#include <vector>
-	using std::vector;
 #include <iostream>
+	using std::cout; 
+#include "Sprite.hpp"
 
 int main(){
 
-	vector< vector<int> > a;
-
-	a[0][0] =  123;
-
-		std::cout<<a[0][0] << std::endl;
-
+	cout << "sprite animado"<< std::endl;	
+	SpriteAnimado b("sprite.txt", 0x0);
+	b.Draw();
+	b.Draw();
+	
 	return 0;
 }
