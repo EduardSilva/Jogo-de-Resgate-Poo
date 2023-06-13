@@ -8,15 +8,13 @@
 class SpriteBase {
 	
 	public:
-		SpriteBase ():orientação('D'){
+		SpriteBase (){
 			//Fazer um belissimo nada.
 		}
 		virtual void Draw() =0;
-			
 
-	protected:
-	int tamh, tamv;
-	char orientação;
+		int tamh, tamv;
+
 };
 
 class Sprite : public SpriteBase {
@@ -37,6 +35,7 @@ class SpriteAnimado : public SpriteBase {
 		SpriteAnimado (string arquivo, char sep);
 		void atualizar_estagio();
 		void Draw();
+	private:
 		int estagio;
 		vector<Sprite> sprite;
 };

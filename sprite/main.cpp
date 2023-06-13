@@ -7,6 +7,7 @@ int main(){
 	cout << "sprite animado"<< std::endl;	
 	SpriteAnimado b("sprite.txt", 0x0);
 	b.Draw();
+	b.trocar_orientação();
 	b.Draw();
 	
 	return 0;

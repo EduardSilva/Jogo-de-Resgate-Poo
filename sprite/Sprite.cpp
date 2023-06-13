@@ -5,6 +5,8 @@
 	using std::ifstream;
 #include <string>
 	using std::string;
+#include <algorithm> 
+	using std::for_each;
 
 
 //relacionados a Sprite
@@ -59,24 +61,7 @@ Sprite::Sprite(vector<vector <char> > sprite, int v, int h): SpriteBase(){
 
 
 void Sprite::Draw(){
-	
-	if (this->orientação == 'D'){
-		for (int v = 0; v < this->tamv; v++){
-				int taml =  this->sprite[v].size();
-			for(int h = 0; h <taml; h++){
-				cout << this->sprite[v][h];
-			}
-		cout << std::endl;
-		}
-		return;
-	}
-	
-	for (int v = 0; v < this->tamv; v++){
-		for(int h = this->tamh-1; h >= 0 ; h--){
-			cout << this->sprite[v][h];
-	}
-	}
-	
+	//refatorado para melhor atualização.	
 };
 
 //relacionados a Sprite animado
