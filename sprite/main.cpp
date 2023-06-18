@@ -1,14 +1,12 @@
 #include <iostream>
 	using std::cout; 
-#include "Sprite.hpp"
+#include "Screen.hpp"
 
 int main(){
 
-	cout << "sprite animado"<< std::endl;	
-	SpriteAnimado b("sprite.txt", 0x0);
-	b.Draw();
-	b.trocar_orientação();
-	b.Draw();
+	Screen a(10, 10);
+
+	a.Draw();
 	
 	return 0;
 }

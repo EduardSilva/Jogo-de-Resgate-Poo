@@ -59,9 +59,46 @@ Sprite::Sprite(vector<vector <char> > sprite, int v, int h): SpriteBase(){
 
 
 
+vector<vector<char>> Sprite:: getRSprite(){
+
+	bool controle;
+	vector<vector<char>> retorno;
+	int ponta;
+	
+	for (int i = 0; i < tamv; i++){
+	
+		int limite = sprite[i].size();
+		vector<char> linha;
+		controle = false;
+		ponta = 0;
+		
+		for(int j = 0; j < limite; j++, ponta++){//pega os epaços e verifica se precisa inverter a linha
+		
+			if(sprite[i][j] == 0x7) controle = true;
+			
+			if(sprite[i][j] != ' ' && !controle ) break;
+			
+			linha.push_back(sprite[i][j]);
+		}
+		
+		for (int k = limite-1; k > ponta; k--){
+			linha.push_back(sprite[i][k]);
+		}
+		retorno.push_back(linha);
+	}
+
+	return retorno;
+}
+
 
 void Sprite::Draw(){
-	//refatorado para melhor atualização.	
+	for (int v = 0; v < this->tamv; v++){
+		int taml =  this->sprite[v].size();
+		for(int h = 0; h <taml; h++){
+				cout << this->sprite[v][h];
+			}
+		cout << std::endl;
+	}//refatorado para melhor atualização.	
 };
 
 //relacionados a Sprite animado
