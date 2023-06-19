@@ -21,6 +21,7 @@ Screen::Screen(int x, int y):
 		screen[0][i] = '-';
 		screen[x-1][i] = '-';
 	}	
+	
 }	
 	
 
@@ -29,7 +30,7 @@ Screen::Screen(int x, int y):
 Screen & Screen::operator<<(const Obj_de_Jogo &obj){
 	if (! obj.esta_ativo() ) return *this;
 		
-	if (obj.x + obj.box[0] > tamv or tamh < obj.y + obj.box[1]) return *this;
+	if ((obj.x + obj.box[1] > tamv) or (tamh < obj.y + obj.box[0])) return *this;
 
 	vector< vector<char> > sprite =obj.orientação == 'D' ? obj.sprite->getSprite() :
 		obj.sprite->getRSprite();
@@ -54,10 +55,31 @@ Screen & Screen::operator<<(const Obj_de_Jogo &obj){
 
 
 void Screen::Draw(){
-	for (int x=0; x < tamv; x++ ){
-		for (int y = 0; y < tamh; y++){
+	for (int x=0; x <= tamv; x++ ){
+		for (int y = 0; y <= tamh; y++){
 			cout << screen[x][y];
 		}
 		cout <<std::endl;
 	}
+	
 }
+
+vector<vector <char> > Screen::getRSprite(){
+	vector<vector<char>> retorno;
+	
+	for (int i = 0; i < tamv; i++){
+	
+		int limite = screen[i].size();
+		vector<char> linha;
+		
+		for(int j = limite-1; 0 <= j; j--){
+			
+			linha.push_back(screen[i][j]);
+		}
+	
+		retorno.push_back(linha);
+	}
+
+	return retorno;
+}
+

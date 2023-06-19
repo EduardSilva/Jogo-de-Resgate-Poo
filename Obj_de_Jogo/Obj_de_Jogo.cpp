@@ -1,13 +1,13 @@
 #include "Obj_de_Jogo.hpp"
 
 
-Obj_de_Jogo::Obj_de_Jogo(int x, int y, int prioridade, char orientação, bool estado, SpriteBase *sprite )
+Obj_de_Jogo::Obj_de_Jogo(int x, int y, int prioridade, char orientação, bool estado,SpriteBase &sprite )
 	:x(x), y(y), prioridade(prioridade), ativo(estado), orientação(orientação){
 	//inserção do sprite.
-	this->sprite = sprite;
+	this->sprite = &sprite;
 	//criação da box de colisão.
-	this->box[0] = sprite->tamh - 1;
-	this->box[1] = sprite->tamv - 1;
+	this->box[0] = this->sprite->tamh - 1;
+	this->box[1] = this->sprite->tamv - 1;
 }
 
 

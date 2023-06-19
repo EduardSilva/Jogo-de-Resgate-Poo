@@ -4,12 +4,13 @@
 #include "../sprite/Sprite.hpp"
 #include <string>
 	using std::string;
-
 class Obj_de_Jogo {
 
+	friend class Screen;
+	
 	public:
 	//construtor 
-	Obj_de_Jogo(int, int, int, char, bool, SpriteBase*);
+	Obj_de_Jogo(int, int, int, char, bool, SpriteBase &);
 
 	//Metodos genericos.
 	void mover_se(int x, int y, bool incrementar);
@@ -17,7 +18,7 @@ class Obj_de_Jogo {
 	void inline trocar_modo() { this->ativo = (!this->ativo); }
 	int inline get_prioridade() { return prioridade; }
 	bool colidindo_com(const Obj_de_Jogo & ) const;
-	
+	void draw() {sprite->Draw();}	
 
 	private:
 	int x, y, prioridade;
