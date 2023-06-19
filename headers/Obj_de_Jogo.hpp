@@ -1,7 +1,7 @@
 #ifndef OBJ_DE_JOGO
 #define OBJ_DE_JOGO
 
-#include "../sprite/Sprite.hpp"
+#include "Sprite.hpp"
 #include <string>
 	using std::string;
 class Obj_de_Jogo {

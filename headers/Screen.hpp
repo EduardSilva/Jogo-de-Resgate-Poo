@@ -1,6 +1,6 @@
 #ifndef SCREEN
 #define SCREEN
-#include "../Obj_de_Jogo/Obj_de_Jogo.hpp"
+#include "Obj_de_Jogo.hpp"
 #include "Sprite.hpp"
 #include <string>
 	using std::string;
