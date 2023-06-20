@@ -12,8 +12,9 @@ class Fase {
 	Fase(Screen &s);
 	virtual void run()=0;
 	void show() { screen->Draw();}
-
-	private:
+	void operator<<(const Obj_de_Jogo &);
+	
+	protected:
 	Screen *screen;
 	list<Obj_de_Jogo> objetos;
 };

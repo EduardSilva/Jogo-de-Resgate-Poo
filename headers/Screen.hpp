@@ -15,11 +15,10 @@ class Screen : public SpriteBase {
 	Screen(int, int);
 	Screen &  operator<<(const Obj_de_Jogo &);
 	void Draw();
-	vector<vector <char> > inline getSprite(){return screen;}
-	vector<vector <char> > getRSprite();
+	vector<vector <char> > inline getSprite(){return screen;};
 	private:
 	vector<vector <char> >screen;
-	
+	vector<vector <char> >clean;
 	
 };
 

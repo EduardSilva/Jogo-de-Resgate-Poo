@@ -1,5 +1,5 @@
-#include "Sprite.hpp"
-#include "Screen.hpp"
+#include "../headers/Sprite.hpp"
+#include "../headers/Screen.hpp"
 #include <fstream>
 	using std::ifstream;
 #include <iostream>
@@ -8,7 +8,7 @@
 	using std::string;
 
 Screen::Screen(int x, int y):
- SpriteBase(), screen (x, vector<char>(y, ' '))
+ SpriteBase(), screen (x, vector<char>(y, '*'))//ajeite isso dps
 {
 	tamv = x-1;//regular limite da tela pra que
 	tamh = y-1;//as bordas não sejam preenchidas
@@ -21,7 +21,7 @@ Screen::Screen(int x, int y):
 		screen[0][i] = '-';
 		screen[x-1][i] = '-';
 	}	
-	
+	clean = screen;
 }	
 	
 
@@ -30,10 +30,9 @@ Screen::Screen(int x, int y):
 Screen & Screen::operator<<(const Obj_de_Jogo &obj){
 	if (! obj.esta_ativo() ) return *this;
 		
-	if ((obj.x + obj.box[1] > tamv) or (tamh < obj.y + obj.box[0])) return *this;
+	if ((obj.x + obj.box[0] > tamv) or (tamh < obj.y + obj.box[1])) return *this;
 
-	vector< vector<char> > sprite =obj.orientação == 'D' ? obj.sprite->getSprite() :
-		obj.sprite->getRSprite();
+	vector< vector<char> > sprite = obj.sprite->getSprite();
 	int x = obj.x; //variavel que representa as linhas 
 	int y = obj.y; //variavel que representa as colunas
 	int limv = sprite.size();
@@ -61,25 +60,8 @@ void Screen::Draw(){
 		}
 		cout <<std::endl;
 	}
-	
+	screen = clean;
 }
 
-vector<vector <char> > Screen::getRSprite(){
-	vector<vector<char>> retorno;
-	
-	for (int i = 0; i < tamv; i++){
-	
-		int limite = screen[i].size();
-		vector<char> linha;
-		
-		for(int j = limite-1; 0 <= j; j--){
-			
-			linha.push_back(screen[i][j]);
-		}
-	
-		retorno.push_back(linha);
-	}
 
-	return retorno;
-}
 

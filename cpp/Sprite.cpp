@@ -1,4 +1,4 @@
-#include "Sprite.hpp"
+#include "../headers/Sprite.hpp"
 #include <iostream>
 	using std::cout; 
 #include <fstream>
@@ -24,11 +24,11 @@ Sprite::Sprite (string arquivo): SpriteBase() {
 	string linha_texto;
 	int h = 0; //linha
 
-	this->tamv = 0;//define o tamanho maximo vertical como 0
+	this->tamh = 0;//define o tamanho maximo vertical como 0
 
 	
 	while(getline(arqI, linha_texto)){
-		int linha_tam = linha_texto.length();
+		int linha_tam = linha_texto.size();
 		vector<char> linha;
 		for (int l = 0; l < linha_tam; l++){ //l = coluna = 0; coluna < tam da string
 			linha.push_back(linha_texto[l]);
@@ -58,39 +58,6 @@ Sprite::Sprite(vector<vector <char> > sprite, int v, int h): SpriteBase(){
 };
 
 
-
-vector<vector<char>> Sprite:: getRSprite(){
-
-	bool controle;
-	vector<vector<char>> retorno;
-	int ponta;
-	
-	for (int i = 0; i < tamv; i++){
-	
-		int limite = sprite[i].size();
-		vector<char> linha;
-		controle = false;
-		ponta = 0;
-		
-		for(int j = 0; j < limite; j++, ponta++){//pega os epaços e verifica se precisa inverter a linha
-		
-			if(sprite[i][j] == 0x7) controle = true;
-			
-			if(sprite[i][j] != ' ' && !controle ) break;
-			
-			linha.push_back(sprite[i][j]);
-		}
-		
-		for (int k = limite-1; k > ponta; k--){
-			linha.push_back(sprite[i][k]);
-		}
-		retorno.push_back(linha);
-	}
-
-	return retorno;
-}
-
-
 void Sprite::Draw(){
 	for (int v = 0; v < this->tamv; v++){
 		int taml =  this->sprite[v].size();
@@ -103,7 +70,7 @@ void Sprite::Draw(){
 
 //relacionados a Sprite animado
 
-SpriteAnimado::SpriteAnimado( string arquivo, char sep = 0x0): SpriteBase(), estagio(0) {
+SpriteAnimado::SpriteAnimado( string arquivo, char sep): SpriteBase(), estagio(0) {
 
 	ifstream arqI;
 	arqI.open(arquivo, ifstream::in);	//abrir o arquivo
@@ -118,9 +85,9 @@ SpriteAnimado::SpriteAnimado( string arquivo, char sep = 0x0): SpriteBase(), est
 	int h =0, v = 0;
 	
 	while(getline(arqI, linha_texto)){
-
+		v++;
 		if(linha_texto[0] != sep){
-			v++;
+			
 			int linha_tam = linha_texto.length();
 			vector<char> linha;
 			for (int l = 0; l < linha_tam; l++){ //l = coluna = 0; coluna < tam da string
@@ -143,13 +110,16 @@ SpriteAnimado::SpriteAnimado( string arquivo, char sep = 0x0): SpriteBase(), est
 
 
 	arqI.close();
+	tamv = sprite[0].tamv;
+	tamh = sprite[0].tamh;
 };
 
 void SpriteAnimado::Draw(){
 
 	sprite[estagio].Draw();
 	atualizar_estagio();
-		
+	tamh = sprite[estagio].tamh;
+	tamv = sprite[estagio].tamv;
 	
 }
 
