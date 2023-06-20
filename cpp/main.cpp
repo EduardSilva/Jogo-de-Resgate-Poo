@@ -6,7 +6,7 @@
 	using namespace std;
 #include <string>	
 int main(){
-	Screen tela(25, 40);	
+	Screen tela(34, 64, "fase_1.txt");	
 	SpriteAnimado helis("sprite.txt");
 	SpriteAnimado pessoaS("Pessoa.txt");
 	Obj_de_Jogo heli(1,2, 0, true, helis);

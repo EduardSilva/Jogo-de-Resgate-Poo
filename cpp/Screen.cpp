@@ -7,20 +7,33 @@
 #include <string>
 	using std::string;
 
-Screen::Screen(int x, int y):
+Screen::Screen(int x, int y, string file):
  SpriteBase(), screen (x, vector<char>(y, '*'))//ajeite isso dps
 {
 	tamv = x-1;//regular limite da tela pra que
 	tamh = y-1;//as bordas não sejam preenchidas
 
-	for (int i = 0; i < x; i++){
-		screen[i][0] = '|';
-		screen[i][y-1] = '|'; 
+	ifstream arqI;
+	arqI.open(file, ifstream::in);	//abrir o arquivo
+	if (! arqI.is_open()){
+			cout << "O sprite presente no arquivo :" << file 
+			<<" não foi aberto" << std::endl;
+			exit(1);
+		}
+		
+	string linha_texto;
+
+	while(getline(arqI, linha_texto)){
+		int linha_tam = linha_texto.size();
+		vector<char> linha;
+		for (int i = 0; i < linha_tam; i++){
+			linha.push_back(linha_texto[i]);
+		}
+
+		screen.push_back(linha);
 	}
-	for (int i = 0; i < y; i++){
-		screen[0][i] = '-';
-		screen[x-1][i] = '-';
-	}	
+
+	arqI.close();
 	clean = screen;
 }	
 	

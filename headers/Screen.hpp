@@ -12,7 +12,7 @@ class Screen : public SpriteBase {
 
 	public:
 	//Construtor
-	Screen(int, int);
+	Screen(int, int, string);
 	Screen &  operator<<(const Obj_de_Jogo &);
 	void Draw();
 	vector<vector <char> > inline getSprite(){return screen;};
