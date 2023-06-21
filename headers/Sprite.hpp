@@ -22,6 +22,11 @@ class Sprite : public SpriteBase {
 
 	public:
 		Sprite (string arquivo);
+		Sprite (string texto, int tam):sprite(1,vector<char>(tam, ' ')){
+			for (int i =0; i<tam; i++){
+				sprite[0][i] = texto[i];
+			}
+		}
 		Sprite (vector<vector <char> >, int v, int h);//sobrecarga do construtor para sprite animado
 		void Draw();
 		vector<vector<char>> inline getSprite(){return sprite;}

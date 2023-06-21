@@ -6,9 +6,9 @@
 	using std::cout;
 #include <string>
 	using std::string;
-
+	
 Screen::Screen(int x, int y, string file):
- SpriteBase(), screen (x, vector<char>(y, '*'))//ajeite isso dps
+ SpriteBase()
 {
 	tamv = x-1;//regular limite da tela pra que
 	tamh = y-1;//as bordas não sejam preenchidas
@@ -22,18 +22,21 @@ Screen::Screen(int x, int y, string file):
 		}
 		
 	string linha_texto;
-
+	int j = 1; 
 	while(getline(arqI, linha_texto)){
 		int linha_tam = linha_texto.size();
 		vector<char> linha;
-		for (int i = 0; i < linha_tam; i++){
+		for (int i = 1; i < linha_tam; i++){
+		
 			linha.push_back(linha_texto[i]);
 		}
 
 		screen.push_back(linha);
+		j++;
 	}
 
 	arqI.close();
+	
 	clean = screen;
 }	
 	
@@ -42,8 +45,9 @@ Screen::Screen(int x, int y, string file):
 
 Screen & Screen::operator<<(const Obj_de_Jogo &obj){
 	if (! obj.esta_ativo() ) return *this;
-		
-	if ((obj.x + obj.box[0] > tamv) or (tamh < obj.y + obj.box[1])) return *this;
+
+	const int* box = obj.get_box();
+	if ((obj.x + box[0] > tamv) or (tamh < obj.y + box[1])) return *this;
 
 	vector< vector<char> > sprite = obj.sprite->getSprite();
 	int x = obj.x; //variavel que representa as linhas 
@@ -67,12 +71,14 @@ Screen & Screen::operator<<(const Obj_de_Jogo &obj){
 
 
 void Screen::Draw(){
-	for (int x=0; x <= tamv; x++ ){
+	for (int x = 0; x <= tamv; x++ ){
+		cout << " ";
 		for (int y = 0; y <= tamh; y++){
 			cout << screen[x][y];
 		}
 		cout <<std::endl;
 	}
+	
 	screen = clean;
 }
 
