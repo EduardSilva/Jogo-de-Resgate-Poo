@@ -155,8 +155,17 @@ int Fase2::run(){
            		break;
         
 		}	
-	
-		
+
+	int gasolina = heli->getGasolina();
+	int peso = heli->getPeso();
+	int qpessoas = heli->getqPessoas();
+	string a = " gasonlina : " + gasolina;
+	a += " Peso : " + peso;
+	a += " quantia p: " + qpessoas;
+
+	Sprite b (a, a.size());
+		*screen << Obj_de_Jogo(38, 14, 10, true, b);
+
 	if(winstatus(pessoas, (*it)) ) return 2;
 	show();
 	if (heli->getGasolina() == 0 ) kill =true;

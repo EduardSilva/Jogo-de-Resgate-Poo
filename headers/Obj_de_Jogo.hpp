@@ -70,6 +70,10 @@ class Helicoptero : public Obj_de_Jogo{
 		if (reduce) gasolina -=  g;
 		else gasolina += g;
 	}
+	int getqPessoas() 
+	{
+		return pessoas.size();
+	}
 	void update();
 	int pegarPessoa(Pessoa &);
 	void soltarPessoas(int, int);
